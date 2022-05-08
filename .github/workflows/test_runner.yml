@@ -1,0 +1,12 @@
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      RUSTC_FORCE_INCREMENTAL: 1
+    needs: build_cache
+    steps:
+      - uses: actions/checkout@v2
+      - name: test
+        run: cargo test --all -- --nocapture
