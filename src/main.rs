@@ -1,10 +1,12 @@
+extern crate core;
+
 use std::env;
 use getopts::Options;
 use rand::Rng;
 
 fn main() {
    match parse_options() {
-       None => panic!("NG"),
+       None => eprintln!("NG"),
        Some(length) => {
            let int_len = match length.parse::<u64>() {
                Ok(res) => res,
@@ -37,4 +39,20 @@ fn create_str(length: u64) -> Option<String> {
         return Some(str_list.iter().collect::<String>());
     }
     return None;
+}
+
+#[cfg(test)]
+mod tests {
+    extern crate std;
+    use crate::create_str;
+
+    #[test]
+    fn test_create_str() {
+        for i in 1..1000 {
+            match create_str(i) {
+                None => eprintln!("test failed"),
+                Some(res) => assert_eq!(i as usize, res.len())
+            };
+        }
+    }
 }
