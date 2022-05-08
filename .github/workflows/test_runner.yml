@@ -1,6 +1,14 @@
 on: push
 
 jobs:
+  build_cache:
+    runs-on: ubuntu-latest
+    env:
+      RUSTC_FORCE_INCREMENTAL: 1
+    steps:
+      - uses: actions/checkout@v2
+      - name: build
+        run: cargo build
   test:
     runs-on: ubuntu-latest
     env:
